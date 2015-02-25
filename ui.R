@@ -37,7 +37,7 @@ shinyUI(fluidPage(
            by all and sundry. Iff you decide you want to credit it to people, though, the appropriate citation is:
            <br/><br/>
            <blockquote>Keyes, Oliver (2015) <em>Geographic distribution of Wikimedia traffic</em> http://dx.doi.org/10.6084/m9.figshare.1317408</blockquote>
-           <br/><br/>"),
+           "),
       downloadButton("downloadAll", "Download all data")
     ),
 
