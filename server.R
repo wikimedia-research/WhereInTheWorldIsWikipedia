@@ -6,6 +6,7 @@ library(grid)
 
 #Plot for per-project data
 per_project_plot <- function(data){
+  data$pageviews_percentage <- data$pageviews_percentage/100
   project_name <- unique(data$project)
   plot_value_extent <- round(max(data$pageviews_percentage),1)
   if(plot_value_extent < max(data$pageviews_percentage)){
@@ -43,7 +44,7 @@ per_project_plot <- function(data){
 }
 
 #Load and format dataset
-country_data <- read.delim("./data/country_dataset.tsv", as.is = TRUE, header = TRUE)
+country_data <- read.delim("./data/language_pageviews_per_country.tsv", as.is = TRUE, header = TRUE)
 
 shinyServer(function(input, output) {
   output$downloadAll <- downloadHandler(

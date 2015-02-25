@@ -1,5 +1,6 @@
 library(shiny)
 library(shinythemes)
+country_data <- read.delim("./data/language_pageviews_per_country.tsv", as.is = TRUE, header = TRUE)
 
 shinyUI(fluidPage(
   titlePanel(title = "", windowTitle = "Where in the world is Wikipedia?"),
@@ -17,18 +18,22 @@ shinyUI(fluidPage(
       h3("Details"),
       p("125,000 requests come to Wikimedia properties every second, for myriad projects and from myriad countries. Far too little
         of it is made available to third-party researchers, due to an understandable and laudable desire to avoid compromising the
-        privacy of our users. Instead, we analyse it ourselves.
-        
-        Part of the analysis we perform - and one of the things third-party researchers do great work on! - is high-level geolocation.
-        We do work geolocating requests down to the country-level, and third-party researchers (some of whom are linked below) do fantastic
-        research investigating the implications of where our traffic comes from - both due to its implications around systemic bias and
-        due to"),
-      h3("Privacy implications"),
-      p("None! At least, none that four researchers with three PhDs (collectively, not individually. That would be ridiculous.) could detect.
-        The data comes from 1:1000 sampled logs, is proportionate rather than raw, and aggregates any nations with <1% of a project's pageviews
+        privacy of our users. Instead, we analyse it ourselves."),
+      p("Part of the analysis we perform is high-level geolocation, investigating the implications that where our traffic comes from
+         has around systemic bias and reach. This is /also/ work that third-parties (some of whom are linked below) do really well.
+         We've decided to release a high-level dataset of geodata, to assist these researchers in their work. This tool represents
+         a simple attempt to visualise it and make it explorable."),
+      h3("Data preparation"),
+      HTML("<p>This dataset represents an aggregate of 1:1000 sampled pageviews from the entirety of 2014. The pageviews definition applied
+        was the Foundation's
+        <a href = 'https://github.com/wikimedia/analytics-refinery-source/blob/master/refinery-core/src/main/java/org/wikimedia/analytics/refinery/core/Pageview.java'>
+        new pageviews definition</a>; additionally, spiders and similar automata were filtered out with Tobie's <a href = 'http://www.uaparser.org/'>ua-parser</a>.
+        Geolocation was then performed using MaxMind's <a href = 'http://dev.maxmind.com/geoip/'> geolocation products</a>.</p>"),
+      p("There are no privacy implications that we could identify; The data comes from 1:1000 sampled logs, is proportionate rather than raw, and aggregates any nations with <1% of a project's pageviews
         under 'Other'."),
       h3("Reusing this data"),
-      HTML("The data is released under the <a href = 'http://opensource.org/licenses/MIT'>MIT license</a>, and can be freely reused
+      HTML("The data is released into the public domain under the
+           <a href = 'https://creativecommons.org/publicdomain/zero/1.0/'>CC-0 public domain dedication</a>, and can be freely reused
            by all and sundry. Iff you decide you want to credit it to people, though, the appropriate citation is:
            <br/><br/>
            <blockquote>foo</blockquote>
