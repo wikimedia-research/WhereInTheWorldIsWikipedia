@@ -16,13 +16,17 @@ shinyUI(fluidPage(
       p("This dataset contains the proportion of traffic to each public Wikimedia project, from each known country, with some caveats."),
       
       h3("Details"),
-      p("125,000 requests come to Wikimedia properties every second, for myriad projects and from myriad countries. Far too little
-        of it is made available to third-party researchers, due to an understandable and laudable desire to avoid compromising the
-        privacy of our users. Instead, we analyse it ourselves."),
-      p("Part of the analysis we perform is high-level geolocation, investigating the implications that where our traffic comes from
-         has around systemic bias and reach. This is /also/ work that third-parties do really well.
-         We've decided to release a high-level dataset of geodata, to assist these researchers in their work. This tool represents
-         a simple attempt to visualise it and make it explorable."),
+      p("Wikimedia properties receive 125,000 requests every second, 
+        for myriad projects and from myriad countries. Too little of it is 
+        made available to third-party researchers, due to an understandable and
+        laudable desire to avoid compromising the privacy of our users.
+        So instead, we analyse it ourselves."),
+      p("Part of the analysis we perform is high-level geolocation:
+         investigating the idea that where our traffic comes from has
+         implications for systemic bias and reach. This is /also/ work that third-parties
+         do really well. We've decided to release a high-level dataset of
+         geodata, to assist these researchers in their work. This tool
+         represents a simple attempt to visualise it and make it explorable."),
       h3("Data preparation"),
       HTML("<p>This dataset represents an aggregate of 1:1000 sampled pageviews from the entirety of 2014. The pageviews definition applied
         was the Foundation's
