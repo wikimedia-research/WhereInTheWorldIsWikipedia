@@ -4,17 +4,11 @@ library(RColorBrewer)
 library(scales)
 library(grid)
 
-#Load and format dataset
-country_data <- read.delim("./data/lang_pairs.tsv", as.is = TRUE, header = TRUE)
-country_data$pageviews <- country_data$pageviews/100
-names(country_data) <- c("project", "language", "pageviews percentage", "country")
-country_data$project <- paste0(country_data$project, ".org")
-
 #Plot for per-project data
 per_project_plot <- function(data){
   project_name <- unique(data$project)
-  plot_value_extent <- round(max(data$`pageviews percentage`),1)
-  if(plot_value_extent < max(data$`pageviews percentage`)){
+  plot_value_extent <- round(max(data$pageviews_percentage),1)
+  if(plot_value_extent < max(data$pageviews_percentage)){
     plot_value_extent <- plot_value_extent+0.1
   }
     
@@ -24,7 +18,7 @@ per_project_plot <- function(data){
   color.axis.text = palette[6]
   color.axis.title = palette[7]
   color.title = palette[9]
-  ggplot(data, aes(reorder(country, `pageviews percentage`), `pageviews percentage` , fill = country)) +
+  ggplot(data, aes(reorder(country, pageviews_percentage), pageviews_percentage , fill = country)) +
     geom_bar(stat = "identity") +
   theme_bw(base_size=9) +
     theme(panel.background=element_rect(fill=color.background, color=color.background)) +
@@ -48,6 +42,9 @@ per_project_plot <- function(data){
        x = "Country")
   
 }
+
+#Load and format dataset
+country_data <- read.delim("./data/country_dataset.tsv", as.is = TRUE, header = TRUE)
 
 shinyServer(function(input, output) {
   output$downloadAll <- downloadHandler(
