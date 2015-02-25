@@ -10,7 +10,8 @@ shinyUI(fluidPage(
     sidebarPanel(
       selectInput("project",
                   "Project:",
-                  choices = unique(country_data$project)),
+                  choices = unique(country_data$project),
+                  selected = "en.wikipedia.org"),
       downloadButton("downloadCountrySubset", "Download this subset"),
       h2("About this data"),
       p("This dataset contains the proportion of traffic to each public Wikimedia project, from each known country, with some caveats."),

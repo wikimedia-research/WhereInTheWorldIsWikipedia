@@ -8,6 +8,7 @@ library(grid)
 per_project_plot <- function(data){
   data$pageviews_percentage <- data$pageviews_percentage/100
   project_name <- unique(data$project)
+  language <- unique(data$language)
   plot_value_extent <- round(max(data$pageviews_percentage),1)
   if(plot_value_extent < max(data$pageviews_percentage)){
     plot_value_extent <- plot_value_extent+0.1
@@ -38,7 +39,7 @@ per_project_plot <- function(data){
   coord_flip() +
   scale_y_continuous(labels = percent, breaks = c(0.01,seq(0.10,plot_value_extent,0.10)),
                      limits = c(0,plot_value_extent)) +
-  labs(title = paste("Per-country pageviews for", project_name, "(2014)"),
+  labs(title = paste("Per-country pageviews for", project_name, paste0("(",language,")")),
        y = "Percentage of pageviews",
        x = "Country")
 }
