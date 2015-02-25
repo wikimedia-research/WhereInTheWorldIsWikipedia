@@ -2,7 +2,9 @@ library(shiny)
 library(shinythemes)
 
 shinyUI(fluidPage(
-  titlePanel(strong("Where in the world is Wikipedia?")),
+  titlePanel(title = "", windowTitle = "Where in the world is Wikipedia?"),
+  h2("Where in the world is Wikipedia?"),
+  h4("Explore how traffic to Wikimedia projects is distributed around the globe."),
   sidebarLayout(
     sidebarPanel(
       selectInput("project",
@@ -21,7 +23,17 @@ shinyUI(fluidPage(
         We do work geolocating requests down to the country-level, and third-party researchers (some of whom are linked below) do fantastic
         research investigating the implications of where our traffic comes from - both due to its implications around systemic bias and
         due to"),
-      h3("Privacy implications")
+      h3("Privacy implications"),
+      p("None! At least, none that four researchers with three PhDs (collectively, not individually. That would be ridiculous.) could detect.
+        The data comes from 1:1000 sampled logs, is proportionate rather than raw, and aggregates any nations with <1% of a project's pageviews
+        under 'Other'."),
+      h3("Reusing this data"),
+      HTML("The data is released under the <a href = 'http://opensource.org/licenses/MIT'>MIT license</a>, and can be freely reused
+           by all and sundry. Iff you decide you want to credit it to people, though, the appropriate citation is:
+           <br/><br/>
+           <blockquote>foo</blockquote>
+           <br/><br/>"),
+      downloadButton("downloadAll", "Download all data")
     ),
 
     # Show a plot of the generated distribution
