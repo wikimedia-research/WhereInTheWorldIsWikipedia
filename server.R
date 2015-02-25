@@ -8,6 +8,7 @@ library(grid)
 country_data <- read.delim("./data/lang_pairs.tsv", as.is = TRUE, header = TRUE)
 country_data$pageviews <- country_data$pageviews/100
 names(country_data) <- c("project", "language", "pageviews percentage", "country")
+country_data$project <- paste0(country_data$project, ".org")
 
 #Plot for per-project data
 per_project_plot <- function(data){
@@ -42,7 +43,7 @@ per_project_plot <- function(data){
   coord_flip() +
   scale_y_continuous(labels = percent, breaks = c(0.01,seq(0.10,plot_value_extent,0.10)),
                      limits = c(0,plot_value_extent)) +
-  labs(title = paste("Per-country pageviews for", paste0(project_name,".org"), "(2014)"),
+  labs(title = paste("Per-country pageviews for", project_name, "(2014)"),
        y = "Percentage of pageviews",
        x = "Country")
   
@@ -65,9 +66,10 @@ shinyServer(function(input, output) {
     per_project_plot(country_data[country_data$project == input$project,])
   })
   output$project_output <- renderText(
-    paste0("Data for ", input$project, ".org")
+    paste0("Data for ", input$project)
   )
   output$table <- renderDataTable(
-    expr = country_data[country_data$project == input$project,]
+    expr = country_data[country_data$project == input$project,],
+    options = list(paging = FALSE, searching = FALSE)
   )
 })
