@@ -40,7 +40,6 @@ per_project_plot <- function(data){
   labs(title = paste("Per-country pageviews for", project_name, "(2014)"),
        y = "Percentage of pageviews",
        x = "Country")
-  
 }
 
 #Load and format dataset
@@ -66,7 +65,10 @@ shinyServer(function(input, output) {
     paste0("Data for ", input$project)
   )
   output$table <- renderDataTable(
-    expr = country_data[country_data$project == input$project,],
+    expr = {
+      cd <- country_data[country_data$project == input$project,]
+      cd[order(cd$pageviews_percentage, decreasing = TRUE),]
+      },
     options = list(paging = FALSE, searching = FALSE)
   )
 })
