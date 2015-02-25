@@ -20,7 +20,7 @@ shinyUI(fluidPage(
         of it is made available to third-party researchers, due to an understandable and laudable desire to avoid compromising the
         privacy of our users. Instead, we analyse it ourselves."),
       p("Part of the analysis we perform is high-level geolocation, investigating the implications that where our traffic comes from
-         has around systemic bias and reach. This is /also/ work that third-parties (some of whom are linked below) do really well.
+         has around systemic bias and reach. This is /also/ work that third-parties do really well.
          We've decided to release a high-level dataset of geodata, to assist these researchers in their work. This tool represents
          a simple attempt to visualise it and make it explorable."),
       h3("Data preparation"),
@@ -36,7 +36,7 @@ shinyUI(fluidPage(
            <a href = 'https://creativecommons.org/publicdomain/zero/1.0/'>CC-0 public domain dedication</a>, and can be freely reused
            by all and sundry. Iff you decide you want to credit it to people, though, the appropriate citation is:
            <br/><br/>
-           <blockquote>foo</blockquote>
+           <blockquote>Keyes, Oliver (2015) <em>Geographic distribution of Wikimedia traffic</em> http://dx.doi.org/10.6084/m9.figshare.1317408</blockquote>
            <br/><br/>"),
       downloadButton("downloadAll", "Download all data")
     ),
