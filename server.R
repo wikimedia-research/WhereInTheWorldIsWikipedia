@@ -12,6 +12,11 @@ names(country_data) <- c("project", "language", "pageviews percentage", "country
 #Plot for per-project data
 per_project_plot <- function(data){
   project_name <- unique(data$project)
+  plot_value_extent <- round(max(data$`pageviews percentage`),1)
+  if(plot_value_extent < max(data$`pageviews percentage`)){
+    plot_value_extent <- plot_value_extent+0.1
+  }
+    
   palette <- brewer.pal("Greys", n=9)
   color.background = palette[2]
   color.grid.major = palette[3]
@@ -35,14 +40,13 @@ per_project_plot <- function(data){
     theme(plot.title = element_text(size=14, color = color.axis.title, face = "bold")) +
     theme(plot.margin = unit(c(0.35, 0.2, 0.3, 0.35), "cm")) +
   coord_flip() +
-  scale_y_continuous(labels = percent, breaks = c(0.01,seq(0.10,round(max(data$`pageviews percentage`),1),0.10)),
-                     limits = c(0,round(max(data$`pageviews percentage`),1))) +
+  scale_y_continuous(labels = percent, breaks = c(0.01,seq(0.10,plot_value_extent,0.10)),
+                     limits = c(0,plot_value_extent)) +
   labs(title = paste("Per-country pageviews for", paste0(project_name,".org"), "(2014)"),
        y = "Percentage of pageviews",
        x = "Country")
   
 }
-
 
 shinyServer(function(input, output) {
   output$downloadAll <- downloadHandler(
@@ -52,7 +56,7 @@ shinyServer(function(input, output) {
     }
   )
     output$downloadCountrySubset <- downloadHandler(
-    filename = paste0("country-subset-",input$project,".tsv"),
+    filename = "country-subset.tsv",
     content = function(file){
       write.table(country_data[country_data$project == input$project,], file, row.names = FALSE, sep = "\t", quote = TRUE)
     }
