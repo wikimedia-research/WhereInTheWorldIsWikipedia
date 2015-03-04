@@ -41,7 +41,7 @@ shinyUI(fluidPage(
            <a href = 'https://creativecommons.org/publicdomain/zero/1.0/'>CC-0 public domain dedication</a>, and can be freely reused
            by all and sundry. Iff you decide you want to credit it to people, though, the appropriate citation is:
            <br/><br/>
-           <blockquote>Keyes, Oliver (2015) <em>Geographic distribution of Wikimedia traffic</em> http://dx.doi.org/10.6084/m9.figshare.1317408</blockquote>
+           <blockquote>Keyes, Oliver (2015) <em><a href = 'http://dx.doi.org/10.6084/m9.figshare.1317408'>Geographic Distribution of Wikimedia Traffic</a></em></blockquote>
            "),
       downloadButton("downloadAll", "Download all data")
     ),
