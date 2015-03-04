@@ -49,6 +49,7 @@ shinyUI(fluidPage(
     # Show a plot of the generated distribution
     mainPanel(
       plotOutput("country_distribution"),
+      br(),br(),br(),br(),br(),br(),br(),br(),br(),
       h2(textOutput("project_output")),
       dataTableOutput("table")
     )

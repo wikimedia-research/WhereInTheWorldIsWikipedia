@@ -38,17 +38,19 @@ per_project_plot <- function(data, project){
     coord_map(projection="mollweide") +
     labs(title = paste(project, "pageviews, by country\n(log-scaled)"),
          x = "", y = "") +
-    scale_fill_gradientn(colours=brewer.pal(9, "Blues")[3:8], name = "Percentage of pageviews\n(log-scaled)",
-                         trans = log10_trans()) +
+    scale_fill_gradientn(colours=brewer.pal(9, "Blues")[3:8], name = "Percentage of pageviews",
+                         trans = log10_trans(),
+                         guide = guide_colourbar(title.position = "top", label.position="bottom")) +
     theme(plot.title = element_text(size=14, color = color.axis.title, face = "bold")) +
-    theme(plot.margin = unit(c(0, 0, 0, 0), "cm")) +
-    theme(axis.text=element_blank(), axis.ticks=element_blank())
+    theme(axis.text=element_blank(), axis.ticks=element_blank()) +
+    theme(legend.position = "bottom")
+    
 }
 
 #Load and format dataset
 country_data <- read.delim("./data/language_pageviews_per_country.tsv", as.is = TRUE, header = TRUE)
 
-shinyServer(function(input, output) {
+shinyServer(function(input, output, session) {
   output$downloadAll <- downloadHandler(
     filename = "all_country_data.tsv",
     content = function(file){
@@ -61,12 +63,24 @@ shinyServer(function(input, output) {
       write.table(country_data[country_data$project == input$project,], file, row.names = FALSE, sep = "\t", quote = TRUE)
     }
   )
+  
+  height_to_use <- reactive({
+    height <- session$clientData$output_country_distribution_height
+    if(is.null(height)){
+      "auto"
+    } else {
+      height*1.5
+    }
+  })
+  
   output$country_distribution <- renderPlot({
     per_project_plot(country_data[country_data$project == input$project,c("country_iso","pageviews_percentage")], input$project)
-  })
+  }, height = isolate(height_to_use()))
+  
   output$project_output <- renderText(
     paste0("Data for ", input$project)
   )
+  
   output$table <- renderDataTable(
     expr = {
       cd <- country_data[country_data$project == input$project,c("country","language","project","pageviews_percentage")]
